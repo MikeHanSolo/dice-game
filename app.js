@@ -58,7 +58,6 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     var rollVal = Math.floor(Math.random() * 6) + 1;
     var dieDOM = document.querySelector('.die');
 
-    console.log(rollVal + ',' + roundScore);
     $(dieDOM)
     .show()
     .attr('current-roll', rollVal)
