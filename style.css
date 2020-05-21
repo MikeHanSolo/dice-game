@@ -3,48 +3,157 @@
 **********************************************/
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    
-}
-
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-image: linear-gradient(rgba(62, 20, 20, 0.4), rgba(62, 20, 20, 0.4)), url(back.jpg);
-    background-size: cover;
-    background-position: center;
-    font-family: Lato;
-    font-weight: 300;
-    position: relative;
-    height: 100vh;
-    color: #555;
+  background-image: linear-gradient(rgba(62, 20, 20, 0.4), rgba(62, 20, 20, 0.4)), url(images/background.jpg);
+  background-size: cover;
+  background-position: center;
+  font-family: Lato;
+  font-weight: 300;
+  position: relative;
+  height: 100vh;
+  color: #555;
 }
 
 .wrapper {
-    width: 1000px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+  width: 90%;
+  height: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: space-evenly;
 }
 
 .player-0-panel,
 .player-1-panel {
-    width: 50%;
-    float: left;
-    height: 600px;
-    padding: 100px;
+  width: 30%;
+  padding: 100px;
+  background-color: #ffffff;
+  opacity: .85;
+  box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+  border: 1px solid black;
 }
 
+.player-0-panel { float: left; }
+.player-1-panel { float: right; }
+
+#game-controls {
+  width: 40%;
+  display: inline-block;
+  margin: 0px auto;
+}
+
+button {
+  position: absolute;
+  width: 200px;
+  height: 80px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #555;
+  background: #ffffff;
+  border: 1px solid black;
+  font-family: Lato;
+  font-size: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 300;
+  transition: background-color 0.3s, color 0.3s;
+  box-shadow: -2px 2px black, -1px 1px black;
+}
+
+button:hover { 
+  font-weight: 600; 
+  box-shadow: none;
+  transform: translate(-50.5%, -49.5%);
+}
+
+button:hover i { margin-right: 20px; }
+
+button:focus {
+  outline: none;
+}
+
+i {
+  color: #EB4D4D;
+  display: inline-block;
+  margin-right: 15px;
+  font-size: 32px;
+  line-height: 1;
+  vertical-align: text-top;
+  margin-top: -4px;
+  transition: margin 0.3s;
+}
+
+.btn-new { top: 80px; }
+.btn-roll { top: 403px; }
+.btn-hold { 
+  top: 467px;
+  margin-top: 25px;
+}
+
+/**********************************************
+*** DICE
+**********************************************/
+
+.die {
+  display: block;
+  margin-top: 195px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px; 
+  transform-style: preserve-3d;
+  transition: transform 1s ease-out;
+}
+
+/* Style of each face of the die */
+.die-face {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  font-size: 40px;
+  text-align: center;
+  line-height: 100px;
+  background-color: #ffffff;
+}
+
+.die-face img {
+  width: 100px;
+  height: 100px;
+  box-shadow:
+    -0.35rem 0.35rem 0.75rem rgba(0, 0, 0, 0.3),
+    0.5rem -0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+/* 
+1. Orient the faces in 3D space 
+2. Translate so they are edge-to-edge 
+*/
+.die-face-front { transform: rotateY(0deg) translateZ(50px); }
+.die-face-right { transform: rotateY(90deg) translateZ(50px); }
+.die-face-back { transform: rotateY(180deg) translateZ(50px); }
+.die-face-left { transform: rotateY(-90deg) translateZ(50px); }
+.die-face-top { transform: rotateX(90deg) translateZ(50px); }
+.die-face-bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+/* Define spin behavior in both directions */
+.pos-spin[current-roll="1"] { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+.neg-spin[current-roll="1"] { transform: rotateX(-360deg) rotateY(-720deg) rotateZ(-360deg); }
+.pos-spin[current-roll="2"] { transform: rotateX(360deg) rotateY(630deg) rotateZ(360deg); }
+.neg-spin[current-roll="2"] { transform: rotateX(-360deg) rotateY(-810deg) rotateZ(-360deg); }
+.pos-spin[current-roll="3"] { transform: rotateX(630deg) rotateY(720deg) rotateZ(360deg); }
+.neg-spin[current-roll="3"] { transform: rotateX(-810deg) rotateY(-720deg) rotateZ(-360deg); }
+.pos-spin[current-roll="4"] { transform: rotateX(810deg) rotateY(720deg) rotateZ(360deg); }
+.neg-spin[current-roll="4"] { transform: rotateX(-630deg) rotateY(-720deg) rotateZ(-360deg); }
+.pos-spin[current-roll="5"] { transform: rotateX(360deg) rotateY(810deg) rotateZ(360deg); }
+.neg-spin[current-roll="5"] { transform: rotateX(-360deg) rotateY(-630deg) rotateZ(-360deg); }
+.pos-spin[current-roll="6"] { transform: rotateX(360deg) rotateY(900deg) rotateZ(360deg); }
+.neg-spin[current-roll="6"] { transform: rotateX(-360deg) rotateY(-540deg) rotateZ(-360deg); }
 
 
 /**********************************************
@@ -52,102 +161,59 @@ body {
 **********************************************/
 
 .player-name {
-    font-size: 40px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 100;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    position: relative;
+  font-size: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 100;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  position: relative;
 }
 
 .player-score {
-    text-align: center;
-    font-size: 80px;
-    font-weight: 100;
-    color: #EB4D4D;
-    margin-bottom: 130px;
+  text-align: center;
+  font-size: 80px;
+  font-weight: 100;
+  color: #EB4D4D;
+  margin-bottom: 130px;
 }
 
-.active { background-color: #f7f7f7; }
+.active { 
+  background-color: #f7f7f7; 
+  opacity: .97;
+  border: 4px solid #EB4D4D;
+}
+
 .active .player-name { font-weight: 300; }
 
 .active .player-name::after {
-    content: "\2022";
-    font-size: 47px;
-    position: absolute;
-    color: #EB4D4D;
-    top: -7px;
-    right: 10px;
-    
+  content: "\2022";
+  font-size: 40px;
+  position: absolute;
+  color: #EB4D4D;
+  top: -2px;
+  right: 5px;
 }
 
 .player-current-box {
-    background-color: #EB4D4D;
-    color: #fff;
-    width: 40%;
-    margin: 0 auto;
-    padding: 12px;
-    text-align: center;
+  background-color: #EB4D4D;
+  color: #fff;
+  width: 70%;
+  margin: 0 auto;
+  padding: 12px;
+  text-align: center;
 }
 
 .player-current-label {
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    font-size: 12px;
-    color: #222;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #222;
 }
 
 .player-current-score {
-    font-size: 30px;
-}
-
-button {
-    position: absolute;
-    width: 200px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #555;
-    background: none;
-    border: none;
-    font-family: Lato;
-    font-size: 20px;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 300;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-button:hover { font-weight: 600; }
-button:hover i { margin-right: 20px; }
-
-button:focus {
-    outline: none;
-}
-
-i {
-    color: #EB4D4D;
-    display: inline-block;
-    margin-right: 15px;
-    font-size: 32px;
-    line-height: 1;
-    vertical-align: text-top;
-    margin-top: -4px;
-    transition: margin 0.3s;
-}
-
-.btn-new { top: 45px;}
-.btn-roll { top: 403px;}
-.btn-hold { top: 467px;}
-
-.dice {
-    position: absolute;
-    left: 50%;
-    top: 178px;
-    transform: translateX(-50%);
-    height: 100px;
-    box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.10);
+  font-size: 30px;
 }
 
 .winner { background-color: #f7f7f7; }

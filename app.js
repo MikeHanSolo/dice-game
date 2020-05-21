@@ -15,7 +15,7 @@ function init () {
   roundScore = 0;
   gamePlaying = true;
 
-  document.querySelector('.dice').style.display = 'none';
+  document.querySelector('.die').style.display = 'none';
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
   document.getElementById('current-0').textContent = '0';
@@ -41,32 +41,43 @@ function nextPlayer() {
   document.querySelector('.player-0-panel').classList.toggle('active');
   document.querySelector('.player-1-panel').classList.toggle('active');
 
-  // Reset by hiding dice roll from last player until current player rolls
-  document.querySelector('.dice').style.display = 'none';
+  // Reset by hiding die roll from last player until current player rolls
+  document.querySelector('.die').style.display = 'none';
 }
-
 
 var scores, roundScore, activePlayer, gamePlaying;
 
 init ();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
+  // Disable rolling or holding until animation is done
+  $('.btn-roll').prop('disabled', true);
+  $('.btn-hold').prop('disabled', true);
   if (gamePlaying) {
-    // Roll logic and display correct dice image
-    var dice = Math.floor(Math.random() * 6) + 1;
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
+    // Roll logic and display correct die side
+    var rollVal = Math.floor(Math.random() * 6) + 1;
+    var dieDOM = document.querySelector('.die');
 
-    // If player doesn't roll === 1, then keep adding up round score
-    if (dice !== 1) {
-      roundScore += dice;
-      document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    } else {
-      nextPlayer();
-    }
+    console.log(rollVal + ',' + roundScore);
+    $(dieDOM)
+    .show()
+    .attr('current-roll', rollVal)
+    .toggleClass('pos-spin neg-spin')
+    .one("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function() { 
+      // If player doesn't roll === 1, then keep adding up round score
+      if (rollVal !== 1) {
+        roundScore += rollVal;
+        document.getElementById('current-' + activePlayer).textContent = roundScore;
+      } else {
+        setTimeout(nextPlayer, 500);
+      }
+      // Re-enable roll and hold buttons
+      setTimeout(function(){
+        $('.btn-roll').prop('disabled', false);
+        $('.btn-hold').prop('disabled', false);
+      }, 500);
+    });
   }
-  
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function() {
@@ -80,7 +91,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     // Check if current player won
     if (scores[activePlayer] >= 100) {
       document.getElementById('name-' + activePlayer).textContent = 'WINNER!'
-      document.querySelector('.dice').style.display = 'none';
+      $('.die').hide();
+      // document.querySelector('.die').style.display = 'none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying = false;

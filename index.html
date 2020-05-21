@@ -19,6 +19,32 @@
           <div class="player-current-score" id="current-0">11</div>
         </div>
       </div>
+
+      <div id="game-controls">
+        <button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>
+        <div class="die pos-spin" current-roll="1">
+          <div class="die-face die-face-front">
+            <img src="images/dice-1.png">
+          </div>
+          <div class="die-face die-face-right">
+            <img src="images/dice-2.png">
+          </div>
+          <div class="die-face die-face-back">
+            <img src="images/dice-6.png">
+          </div>
+          <div class="die-face die-face-left">
+            <img src="images/dice-5.png">
+          </div>
+          <div class="die-face die-face-top">
+            <img src="images/dice-3.png">
+          </div>
+          <div class="die-face die-face-bottom">
+            <img src="images/dice-4.png">
+          </div>
+        </div>
+        <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
+        <button class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
+      </div>
       
       <div class="player-1-panel">
         <div class="player-name" id="name-1">Player 2</div>
@@ -28,14 +54,8 @@
           <div class="player-current-score" id="current-1">0</div>
         </div>
       </div>
-      
-      <button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>
-      <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
-      <button class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
-      
-      <img src="dice-5.png" alt="Dice" class="dice">
     </div>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
